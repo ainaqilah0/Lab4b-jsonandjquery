@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Book Collection</title>
+    </head>
+
+    <body>
+        <h1> Book Collection</h1>
+        <h2> Book Information</h2>
+
+        <div id="bookOutput"></div>
+
+        <script>
+            fetch("books.json")
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to load JSON file.");
+                }
+                return response.json();
+            })
+
+            .then(data => {
+
+                const books = data.books;
+                const output = document.getElementById("bookOutput");
+            
+        output.textContent =
+            books[0].title + "; " +
+            books[1].author + "; " +
+            books[0].title + " — " + books[0].genres.join(", ") + "; " +
+            books[1].title + " — " + books[1].genres.join(", ") + ".";
+    })
+
+            .catch(error => {
+        document.getElementById("bookOutput").textContent ="Sorry, unable to load book information.";
+        console.error(error);
+            });
+
+        </script>
+    </body>
+</html>
